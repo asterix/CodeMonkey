@@ -118,5 +118,8 @@ int main()
          outfile << "No" << endl;
       }
    }
+
+   infile.close(); outfile.close();
+   
    return 0;
 }
