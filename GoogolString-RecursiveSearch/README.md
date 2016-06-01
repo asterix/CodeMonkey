@@ -20,7 +20,7 @@ S4 = "001001100011011"
 
 SN = SN-1 + "0" + switch(reverse(SN-1)).
 ```
-You need to figure out the Kth character of Sgoogol, where googol = 10100.
+You need to figure out the Kth character of Sgoogol, where googol = 10^100 (10 power 100).
 
 #Input
 
