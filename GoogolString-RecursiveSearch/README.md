@@ -35,10 +35,10 @@ For each test case, output one line containing "Case #x: y", where x is the test
 1 ≤ T ≤ 100.
 Small dataset
 
-1 ≤ K ≤ 105.
+1 ≤ K ≤ 10^5.
 Large dataset
 
-1 ≤ K ≤ 1018.
+1 ≤ K ≤ 10^18.
 #Sample
 ```
 Input 
