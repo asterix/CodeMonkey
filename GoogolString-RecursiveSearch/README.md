@@ -20,7 +20,7 @@ S4 = "001001100011011"
 
 SN = SN-1 + "0" + switch(reverse(SN-1)).
 ```
-You need to figure out the Kth character of Sgoogol, where googol = 10100.
+You need to figure out the Kth character of Sgoogol, where googol = 10^100 (10 power 100).
 
 #Input
 
@@ -35,10 +35,10 @@ For each test case, output one line containing "Case #x: y", where x is the test
 1 ≤ T ≤ 100.
 Small dataset
 
-1 ≤ K ≤ 105.
+1 ≤ K ≤ 10^5.
 Large dataset
 
-1 ≤ K ≤ 1018.
+1 ≤ K ≤ 10^18.
 #Sample
 ```
 Input 
