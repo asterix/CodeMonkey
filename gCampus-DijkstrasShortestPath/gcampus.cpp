@@ -21,8 +21,8 @@ int main()
    int num_tests;
    infile >> num_tests;
 
-   map<int, vector<pair<int, int> > > gmap;
-   vector<int> ineff, visited;
+   map<pair<int, int>, int> gmap;
+   vector<tuple<pair<int, int>, bool > ineff;
    
    for(int i = 0; i < num_tests; i++)
    {
@@ -40,22 +40,29 @@ int main()
          int u, v, w;
          infile >> u >> v >> w;
 
-         if(gmap.find(u) != gmap.end())
+         // Direction 1
+         pair edge = make_pair(u, v);
+         if(gmap.find(edge) != gmap.end())
          {
-            gmap.find(u)->second.push_back(make_pair(v, w));
+            gmap.find(edge)->second = w;
          }
          else
          {
-            vector<pair<int, int> > x;
-            x.push_back(make_pair(v, w));
-            gmap.insert(make_pair(u, x));
+            gmap.insert(make_pair(make_pair(u, v), w));
          }
-      }
 
-      // consider all road inefficient at first
-      for(int p = 0; p < n; p++)
-      {
-         ineff.push_back(p);
+         ineff.push_back(make_tuple(edge, true));
+
+         // Undirected - direction 2
+         edge = make_pair(v, u);
+         if(gmap.find(edge) != gmap.end())
+         {
+            gmap.find(edge)->second = w;
+         }
+         else
+         {
+            gmap.insert(make_pair(make_pair(v, u), w));
+         }
       }
 
       // dijsktras shortest path search - remove nodes in shortest paths
@@ -69,9 +76,12 @@ int main()
       }
 
       // print inefficient roads
-      for(auto it = ineff.begin(); it != ineff.end(); it++)
+      for(int i = 0; i < ineff.size(); i++)
       {
-         outfile << *it << endl;
+         if(get<1>(ineff.at(i)))
+         {
+            outfile << i << endl;
+         }
       }
    }
    infile.close(); outfile.close();
