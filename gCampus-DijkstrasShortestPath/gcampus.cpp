@@ -11,6 +11,26 @@
 
 using namespace std;
 
+
+struct graph
+{
+   unsigned int g[100][100];
+
+   // Clear graph
+   void clear()
+   {
+      for(int a = 0; a < 100; a++)
+         for(int b = 0; b < 100; b++)
+            g[a][b] = -1;
+   }
+};
+
+
+void dijkstra_sps(int a, graph *g, vector<pair<int, int> > *p)
+{
+
+}
+
 int main()
 {
    ifstream infile;
@@ -21,71 +41,56 @@ int main()
    int num_tests;
    infile >> num_tests;
 
-   map<pair<int, int>, int> gmap;
-   vector<tuple<pair<int, int>, bool > ineff;
+   graph g, e;
+   vector<pair<int, int> > p;
+   vector<tuple<pair<int, int>, bool> > ed;
    
    for(int i = 0; i < num_tests; i++)
    {
-      gmap.clear();
-      ineff.clear();
-
       outfile << "Case #" << to_string(i+1) << ": " << endl;
-
-      int n, m;
-      infile >> n >> m;
       
-      // graph create
-      for(int p = 0; p < m; p++)
+      int n, m, u, v;
+      unsigned int w;
+      infile >> n >> m;
+
+      g.clear(); e.clear(); p.clear();
+
+      // Create graph - mark efficient paths
+      for(int a = 0; a < m; a++)
       {
-         int u, v, w;
          infile >> u >> v >> w;
-
-         // Direction 1
-         pair edge = make_pair(u, v);
-         if(gmap.find(edge) != gmap.end())
+         if(g.g[u][v] > w)
          {
-            gmap.find(edge)->second = w;
+            g.g[u][v] = w; g.g[v][u] = w;
+            e.g[u][v] = a; e.g[v][u] = a;
          }
-         else
-         {
-            gmap.insert(make_pair(make_pair(u, v), w));
-         }
-
-         ineff.push_back(make_tuple(edge, true));
-
-         // Undirected - direction 2
-         edge = make_pair(v, u);
-         if(gmap.find(edge) != gmap.end())
-         {
-            gmap.find(edge)->second = w;
-         }
-         else
-         {
-            gmap.insert(make_pair(make_pair(v, u), w));
-         }
+         ed.push_back(make_tuple(make_pair(u, v), true));
       }
 
-      // dijsktras shortest path search - remove nodes in shortest paths
-      for(int p = 0; p < n; p++)
+      // Search shortest paths
+      for(int a = 0; a < n; a++)
       {
-         visited.clear();
+         // a -> all shortest paths
+         dijkstra_sps(a, &g, &p);
 
-         visited.push_back(p);
-
-
-      }
-
-      // print inefficient roads
-      for(int i = 0; i < ineff.size(); i++)
-      {
-         if(get<1>(ineff.at(i)))
+         // Mark shortest paths as efficient
+         for(int h = 0; h < ed.size(); h++)
          {
-            outfile << i << endl;
+            if(find(p.begin(), p.end(), get<0>(ed.at(h))) != p.end())
+            {
+               if(e.g[get<0>(ed.at(h)).first][get<0>(ed.at(h)).second] == h)
+               {
+                  get<1>(ed.at(h)) = false;
+               }
+            }
          }
       }
+      
    }
+
+
    infile.close(); outfile.close();
-   
    return 0;
 }
+
 
