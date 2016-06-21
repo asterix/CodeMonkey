@@ -8,6 +8,7 @@
 #include <string>
 #include <cmath>
 
+#define LIM 10e9
 
 using namespace std;
 
@@ -25,11 +26,14 @@ int main()
    {
       outfile << "Case #" << to_string(i+1) << ": ";
 
-      int n;
-      infile >> n;
+      int s, r, c, t = 0, xi;
+      infile >> s >> r >> c;
       
-      for(int n = 0; n < numpairs; n++)
+      while(t < LIM && t < s)
       {
+         infile >> xi;
+         
+         t += xi;
       }
    }
 
