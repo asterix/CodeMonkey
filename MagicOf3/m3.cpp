@@ -20,32 +20,23 @@ int main(int argc, char** argv)
       return 1;
    }
 
-   ulli tri = inpx + 4;
+   ulli d = 1, m = 1;
 
-   while(!is_all_ones(tri * inpx))
+   while(m != 0)
    {
-      tri += 10;
+      m = ((m * 10) + 1) % inpx;
+      d++;
    }
 
-   cout << "The least with all ones is: " << tri*inpx << endl;
+   string op = "";
+   while(d != 0)
+   {
+      op += '1';
+      d--;
+   }
+
+   cout << "The least multiple with all ones is: " << op << endl;
    return 0;
 }
 
 
-bool is_all_ones(ulli num)
-{
-   bool res = true;
-
-   while(num > 1)
-   {
-      if(num % 10 != 1)
-      {
-         res = false;
-         break;
-      }
-
-      num /= 10;
-   }
-
-   return res;
-}
